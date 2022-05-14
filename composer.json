@@ -1,4 +1,6 @@
 {
+    "name": "weatherapi/forecast",
+    "description": "weather api by souflam",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",

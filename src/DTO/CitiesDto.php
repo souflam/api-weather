@@ -24,5 +24,4 @@ class CitiesDto
     {
         $this->cities = $cities;
     }
-
 }

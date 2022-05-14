@@ -1,4 +1,5 @@
 <?php
+
 namespace App\DTO;
 
 class CityDto
@@ -54,5 +55,4 @@ class CityDto
     {
         $this->longitude = $longitude;
     }
-
 }

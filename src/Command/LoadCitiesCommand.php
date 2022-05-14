@@ -15,7 +15,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class LoadCitiesCommand extends Command
 {
-
     private LoadCityIntoDatabase $loadCityIntoDatabase;
 
     public function __construct(LoadCityIntoDatabase $loadCityIntoDatabase, string $name = null)

@@ -14,5 +14,4 @@ abstract class AbstractDtoTransformer implements DtoTransformerInterface
 
         return $dto;
     }
-
 }
