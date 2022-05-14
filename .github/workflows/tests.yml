@@ -44,7 +44,7 @@ jobs:
       - name: Install wget
         run: sudo apt-get install -y wget
       - name: Download Symfony CLI
-        run: wget https://get.symfony.com/cli/installer -O - | bash && sudo mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+        run: wget https://get.symfony.com/cli/installer -O - | bash && sudo mv /home/runner/.symfony/bin/symfony /usr/local/bin/symfony
       - name: Check Symfony requirements
         run: symfony check:requirements
       - name: Check the Symfony console
