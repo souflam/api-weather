@@ -5,7 +5,6 @@ namespace App\Service;
 use App\DTO\CityDto;
 use App\Transformer\CityDtoTransformer;
 use Doctrine\Persistence\ManagerRegistry;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -25,8 +24,7 @@ class LoadCityIntoDatabase
         ManagerRegistry     $doctrine,
         HttpClientInterface $client,
         ParameterBagInterface $param
-    )
-    {
+    ) {
         $this->serializer = $serializer;
         $this->cityDtoTransformer = $cityDtoTransformer;
         $this->doctrine = $doctrine;
@@ -58,16 +56,17 @@ class LoadCityIntoDatabase
         $em->flush();
     }
 
-
     private function truncateCity()
     {
         $sqlConnection = $this->doctrine->getConnection();
+
         try {
             $sqlConnection->beginTransaction();
             $sqlConnection->exec('TRUNCATE city');
             //$sqlConnection->commit();
         } catch (\Throwable $e) {
             $sqlConnection->rollback();
+
             throw $e;
         }
     }

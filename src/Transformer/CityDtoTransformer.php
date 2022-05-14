@@ -5,7 +5,6 @@ namespace App\Transformer;
 use App\DTO\CityDto;
 use App\Entity\City;
 use App\Exception\UnexpectedTypeException;
-use App\Transformer\AbstractDtoTransformer;
 
 class CityDtoTransformer extends AbstractDtoTransformer
 {
@@ -16,7 +15,7 @@ class CityDtoTransformer extends AbstractDtoTransformer
      */
     public function transformFromObject($cityDto): City
     {
-        if (!$cityDto instanceof CityDto) {
+        if (! $cityDto instanceof CityDto) {
             throw new UnexpectedTypeException('Expected type of cityDto but got ' . \get_class($cityDto));
         }
 
