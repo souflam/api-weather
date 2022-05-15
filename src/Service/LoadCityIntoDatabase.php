@@ -3,45 +3,39 @@
 namespace App\Service;
 
 use App\DTO\CityDto;
+use App\Http\MusementApiClientInterface;
 use App\Transformer\CityDtoTransformer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LoadCityIntoDatabase
 {
-    private SerializerInterface $serializer;
     private CityDtoTransformer $cityDtoTransformer;
     private ManagerRegistry $doctrine;
-    private HttpClientInterface $client;
-    private ParameterBagInterface $param;
+    private MusementApiClientInterface $clientMusement;
+    private SerializerInterface $serializer;
 
     public function __construct(
         SerializerInterface $serializer,
         CityDtoTransformer $cityDtoTransformer,
         ManagerRegistry     $doctrine,
-        HttpClientInterface $client,
-        ParameterBagInterface $param
+        MusementApiClientInterface $clientMusement
     ) {
-        $this->serializer = $serializer;
         $this->cityDtoTransformer = $cityDtoTransformer;
         $this->doctrine = $doctrine;
-        $this->client = $client;
-        $this->param = $param;
+        $this->clientMusement = $clientMusement;
+
+        $this->serializer = $serializer;
     }
 
     public function loadCitiesIntoDatabase(OutputInterface $output)
     {
-        $citiesResponse = $this->client->request('GET', $this->param->get('url_musement_cities'));
-        //deserialize data received into DTO
+        $citiesResponse = $this->clientMusement->fetchCities();
         /**
          * @var CityDto[]
          */
         $cities = $this->serializer->deserialize($citiesResponse->getContent(), 'App\DTO\CityDto[]', 'json');
-        //pass data into filters and validators
-
         //save data into database
         $citiesEntity = $this->cityDtoTransformer->transformFromObjects($cities);
         $em = $this->doctrine->getManager();
@@ -56,14 +50,13 @@ class LoadCityIntoDatabase
         $em->flush();
     }
 
-    private function truncateCity()
+    public function truncateCity()
     {
         $sqlConnection = $this->doctrine->getConnection();
 
         try {
             $sqlConnection->beginTransaction();
-            $sqlConnection->exec('TRUNCATE city');
-            //$sqlConnection->commit();
+            $sqlConnection->exec('DELETE from city');
         } catch (\Throwable $e) {
             $sqlConnection->rollback();
 
