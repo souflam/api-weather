@@ -2,7 +2,6 @@
 
 namespace App\Tests\integration;
 
-
 use App\Entity\City;
 use App\Http\FakeMusementApiClient;
 use App\Service\LoadCityIntoDatabase;
@@ -13,7 +12,8 @@ use Symfony\Component\Console\Tester\CommandTester;
 class LoadDataFromMusementApiIntoDBCommandTest extends DatabaseDependantTestCase
 {
     /** @test */
-    public function the_load_data_from_musement_to_database_behaves_correctly(){
+    public function the_load_data_from_musement_to_database_behaves_correctly()
+    {
         $app = new Application(self::$kernel);
         $command = $app->find('app:load-cities');
         $commandTester = new CommandTester($command);
@@ -92,7 +92,7 @@ class LoadDataFromMusementApiIntoDBCommandTest extends DatabaseDependantTestCase
 
         $cities = $repo->findAll();
         /** @var City $city */
-        $city = $repo->findOneBy(['name' =>'Rome']);
+        $city = $repo->findOneBy(['name' => 'Rome']);
         $this->assertCount(3, $cities);
         $this->assertSame('Rome', $city->getName());
         $this->assertSame(41.898, $city->getLatitude());
