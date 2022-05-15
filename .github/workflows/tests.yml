@@ -55,5 +55,5 @@ jobs:
         with:
           args: --config=.php_cs.dist.php --diff --dry-run
       #-----test----
-        - name: Run functionnal and unit tests
+      - name: Run functionnal and unit tests
         run: php ./vendor/bin/phpunit tests
