@@ -23,7 +23,7 @@ class ComposerStaticInitb40c114995dca570fdc9449b29396919
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+            'Symfony\\Polyfill\\Intl\\Denormalizer\\' => 33,
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Service\\' => 26,
@@ -71,7 +71,7 @@ class ComposerStaticInitb40c114995dca570fdc9449b29396919
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Denormalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
@@ -168,7 +168,7 @@ class ComposerStaticInitb40c114995dca570fdc9449b29396919
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'Denormalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpCsFixer\\Diff\\Chunk' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Chunk.php',
         'PhpCsFixer\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/ConfigurationException.php',
         'PhpCsFixer\\Diff\\Diff' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Diff.php',

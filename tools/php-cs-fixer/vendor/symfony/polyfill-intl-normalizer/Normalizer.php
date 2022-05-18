@@ -12,7 +12,7 @@
 namespace Symfony\Polyfill\Intl\Normalizer;
 
 /**
- * Normalizer is a PHP fallback implementation of the Normalizer class provided by the intl extension.
+ * Denormalizer is a PHP fallback implementation of the Denormalizer class provided by the intl extension.
  *
  * It has been validated with Unicode 6.3 Normalization Conformance Test.
  * See http://www.unicode.org/reports/tr15/ for detailed info about Unicode normalizations.
@@ -66,7 +66,7 @@ class Normalizer
             case self::NFKC: $C = true; $K = true; break;
             case self::NFKD: $C = false; $K = true; break;
             default:
-                if (\defined('Normalizer::NONE') && \Normalizer::NONE == $form) {
+                if (\defined('Denormalizer::NONE') && \Normalizer::NONE == $form) {
                     return $s;
                 }
 

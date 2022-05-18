@@ -46,7 +46,6 @@ class LoadCityIntoDatabase
         foreach ($citiesEntity as $city) {
             $em->persist($city);
         }
-
         $em->flush();
     }
 
@@ -57,6 +56,7 @@ class LoadCityIntoDatabase
         try {
             $sqlConnection->beginTransaction();
             $sqlConnection->exec('DELETE from city');
+            $sqlConnection->commit();
         } catch (\Throwable $e) {
             $sqlConnection->rollback();
 

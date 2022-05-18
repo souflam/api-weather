@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     url_musement_cities: '%env(APP_URL_MUSEMENT_CITIES)%'
+    url_weather_api: '%env(APP_URL_WEATHER_API)%'
+    weather_api_key: '%env(APP_WEATHER_API_KEY)%'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -25,3 +27,6 @@ services:
 
     App\Http\MusementApiClientInterface:
         class: App\Http\MusementApiClient
+
+    App\Http\ForecastApiCLientInterface:
+        class: App\Http\ForecastApiClient
