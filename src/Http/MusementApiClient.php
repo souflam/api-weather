@@ -21,6 +21,8 @@ class MusementApiClient implements MusementApiClientInterface
     {
         $cities = $this->client->request('GET', $this->param->get('url_musement_cities'));
 
+
+
         return new JsonResponse($cities->toArray(), 200);
     }
 }

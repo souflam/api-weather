@@ -56,6 +56,14 @@ services:
         working_dir: /var/www/project
         networks:
             - nginx-php81-mysql8-node
+
+    redis:
+        container_name: container_redis
+        image: redis:4.0
+        ports:
+            - "6379:6379"
+        networks:
+            - nginx-php81-mysql8-node
 ###> doctrine/doctrine-bundle ###
     database:
         image: postgres:${POSTGRES_VERSION:-13}-alpine
@@ -71,6 +79,6 @@ services:
 ###< doctrine/doctrine-bundle ###
 
 volumes:
-###> doctrine/doctrine-bundle ###
+  redis:
+    driver: local
   db-data:
-###< doctrine/doctrine-bundle ###

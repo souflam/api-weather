@@ -7,5 +7,6 @@
 4. Run `composer install`
 5. Run `symfony console doctrine:database:create`
 6. Run `symfony console d:m:m`
-7. Run `symfony console app:load-cities` (to load cities in db)
-8. Run `symfony console app:load-forecast` (show forecast for loaded cities)
+7. update APP_WEATHER_API_KEY on .env by adding your api key
+8. Run `symfony console app:load-cities` (to load cities in db)
+9. Run `symfony console app:load-forecast` (show forecast for loaded cities)

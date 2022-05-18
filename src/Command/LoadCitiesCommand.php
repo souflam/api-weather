@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\LoadCityIntoDatabase;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,21 +17,31 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class LoadCitiesCommand extends Command
 {
     private LoadCityIntoDatabase $loadCityIntoDatabase;
+    private LoggerInterface $logger;
 
-    public function __construct(LoadCityIntoDatabase $loadCityIntoDatabase, string $name = null)
+    public function __construct(LoggerInterface $logger, LoadCityIntoDatabase $loadCityIntoDatabase, string $name = null)
     {
         parent::__construct($name);
         $this->loadCityIntoDatabase = $loadCityIntoDatabase;
+        $this->logger = $logger;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        try {
+            $io = new SymfonyStyle($input, $output);
 
-        $this->loadCityIntoDatabase->loadCitiesIntoDatabase($output);
+            $this->loadCityIntoDatabase->loadCitiesIntoDatabase($output);
 
-        $io->success('End LoadCities');
+            $io->success('End LoadCities');
 
-        return Command::SUCCESS;
+            return Command::SUCCESS;
+        } catch (\Exception $e) {
+            //log everythings
+            $this->logger->warning(get_class($e) . ': ' . $e->getMessage() . ' in ' . $e->getFile()
+                . ' on line ' . $e->getLine());
+
+            return Command::FAILURE;
+        }
     }
 }

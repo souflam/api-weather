@@ -32,6 +32,7 @@ class LoadCityIntoDatabase
     public function loadCitiesIntoDatabase(OutputInterface $output)
     {
         $citiesResponse = $this->clientMusement->fetchCities();
+
         /**
          * @var CityDto[]
          */

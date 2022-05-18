@@ -7,15 +7,17 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ForecastApiClient implements ForecastApiCLientInterface
+class ForecastApiClient extends AbstractCacheApi implements ForecastApiCLientInterface
 {
     private ParameterBagInterface $param;
     private HttpClientInterface $client;
 
     const DAYS = 2;
+    private const WEATHER_REDIS_CACHE = "weatherRedisCache";
 
     public function __construct(ParameterBagInterface $param, HttpClientInterface $client)
     {
+        parent::__construct();
         $this->param = $param;
         $this->client = $client;
     }
@@ -28,7 +30,10 @@ class ForecastApiClient implements ForecastApiCLientInterface
     {
         $allResponses = [];
         $responses = [];
-        //http://api.weatherapi.com/v1/forecast.json?key=957f731fde264025a84114236221505&q=48.866,2.355&days=2
+        $cacheItem = $this->getCacheItem(self::WEATHER_REDIS_CACHE);
+        if ($this->isCached($cacheItem)) {
+            return new JsonResponse($this->getFromCache($cacheItem), 200);
+        }
         for ($i = 0; $i < count($cities); $i++) {
             $uri = $this->param->get('url_weather_api');
             $allResponses[] = $this->client->request('GET', $uri, [
@@ -43,6 +48,8 @@ class ForecastApiClient implements ForecastApiCLientInterface
                 $responses[$i]['name'] = $cities[$i]->getName();
             }
         }
+        $cacheItem->set($responses);
+        $this->cache->save($cacheItem);
 
         return new JsonResponse($responses, 200);
     }
