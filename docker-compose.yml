@@ -1,8 +1,6 @@
 version: '3'
-
 networks:
     nginx-php81-mysql8-node:
-
 services:
 
     # nginx
@@ -58,21 +56,29 @@ services:
         working_dir: /var/www/project
         networks:
             - nginx-php81-mysql8-node
+
+    redis:
+        container_name: container_redis
+        image: redis:4.0
+        ports:
+            - "6379:6379"
+        networks:
+            - nginx-php81-mysql8-node
 ###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
-    volumes:
-      - db-data:/var/lib/postgresql/data:rw
+    database:
+        image: postgres:${POSTGRES_VERSION:-13}-alpine
+        environment:
+          POSTGRES_DB: ${POSTGRES_DB:-app}
+          # You should definitely change the password in production
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+          POSTGRES_USER: ${POSTGRES_USER:-symfony}
+        volumes:
+          - db-data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
 
 volumes:
-###> doctrine/doctrine-bundle ###
+  redis:
+    driver: local
   db-data:
-###< doctrine/doctrine-bundle ###

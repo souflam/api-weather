@@ -151,7 +151,7 @@ fabric.properties
 
 # PHPUnit
 /app/phpunit.xml
-/phpunit.xml
+/phpunit.xml.dist
 
 # Build data
 /build/
