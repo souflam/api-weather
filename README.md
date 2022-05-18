@@ -8,5 +8,10 @@
 5. Run `symfony console doctrine:database:create`
 6. Run `symfony console d:m:m`
 7. update APP_WEATHER_API_KEY on .env by adding your api key
-8. Run `symfony console app:load-cities` (to load cities in db)
-9. Run `symfony console app:load-forecast` (show forecast for loaded cities)
+8. get into docker container php
+9. Run `symfony console app:load-cities` (to load cities in db)
+10. Run `symfony console app:load-forecast` (show forecast for loaded cities)
+
+- we can use php bin/console secrets:set to keep our Sensitive Information Secret
+- the code need more refactoring.
+- i used integration test to test only first command app:load-cities
