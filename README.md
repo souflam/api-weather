@@ -1,4 +1,4 @@
-# Weather API Soufiane Lamnizeh from Jagaad
+# Weather API Soufiane Lamnizeh
 ## Getting Started
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/)
